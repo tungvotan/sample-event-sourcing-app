@@ -1,7 +1,8 @@
 import { AccountRepository } from '../../repo/accountRepo';
 import { EventRepository } from '../../repo/eventRepo';
-import { Account, createAccount } from '../operations/account';
+import { createAccount } from '../operations/account';
 import { createAccountEvent } from '../events/accountEvent';
+import { Account } from '../entities/accountEntity';
 
 export type OpenAccountCommand = {
   commandType: 'OPEN_ACCOUNT';

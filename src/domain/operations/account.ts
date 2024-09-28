@@ -1,8 +1,4 @@
-export type Account = {
-  accountId: string;
-  balance: number;
-  version: number;
-};
+import { Account } from '../entities/accountEntity';
 
 export const createAccount = (accountId: string, balance = 0): Account => ({
   accountId,
@@ -13,7 +9,7 @@ export const createAccount = (accountId: string, balance = 0): Account => ({
 export const addFunds = (account: Account, amount: number): Account => ({
   ...account,
   balance: account.balance + amount,
-  version: account.version++,
+  version: account.version + 1,
 });
 
 export const charge = (account: Account, amount: number): Account => {
@@ -21,6 +17,6 @@ export const charge = (account: Account, amount: number): Account => {
   return {
     ...account,
     balance: account.balance - amount,
-    version: account.version++,
+    version: account.version + 1,
   };
 };

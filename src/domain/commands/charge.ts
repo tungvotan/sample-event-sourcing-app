@@ -16,7 +16,8 @@ export const handleCharge = async (
 ) => {
   const { accountId, amount } = command;
 
-  let account = await accountRepository.getById(accountId);
+  const account = await accountRepository.getById(accountId);
+  console.log('firszzzzzzzzt', account);
   if (!account) {
     throw new Error(`Account with ID ${accountId} does not exist.`);
   }

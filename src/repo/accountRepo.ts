@@ -1,5 +1,5 @@
 import db from '../db/dbClient';
-import { Account, createAccount } from '../domain/operations/account';
+import { Account } from '../domain/entities/accountEntity';
 import { AccountEvent } from '../domain/events/accountEvent';
 
 export class AccountRepository {
