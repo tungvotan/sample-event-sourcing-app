@@ -1,6 +1,6 @@
 import { AccountRepository } from '../../repo/accountRepo';
 import { EventRepository } from '../../repo/eventRepo';
-import { charge } from '../account';
+import { charge } from '../operations/account';
 import { createAccountEvent } from '../events/accountEvent';
 
 export type ChargeCommand = {

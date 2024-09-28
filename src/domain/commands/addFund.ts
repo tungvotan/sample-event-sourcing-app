@@ -1,6 +1,6 @@
 import { AccountRepository } from '../../repo/accountRepo';
 import { EventRepository } from '../../repo/eventRepo';
-import { addFunds } from '../account';
+import { addFunds } from '../operations/account';
 import { createAccountEvent } from '../events/accountEvent';
 
 export type AddFundCommand = {
