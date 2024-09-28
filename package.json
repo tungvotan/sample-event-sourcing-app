@@ -1,0 +1,36 @@
+{
+  "name": "sample-event-sourcing-app",
+  "version": "1.0.0",
+  "description": "Billing app with Node.js, PostgreSQL, Event Sourcing, and Kysely",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "migrate": "ts-node runMigrations.ts",
+    "dev": "ts-node-dev --respawn src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tungvotan/sample-event-sourcing-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tungvotan/sample-event-sourcing-app/issues"
+  },
+  "homepage": "https://github.com/tungvotan/sample-event-sourcing-app#readme",
+  "dependencies": {
+    "@types/node": "^22.7.4",
+    "@types/pg": "^8.11.10",
+    "express": "^4.21.0",
+    "kafka-streams": "^5.0.0",
+    "kafkajs": "^2.2.4",
+    "kysely": "^0.27.4",
+    "pg": "^8.13.0",
+    "typescript": "^5.6.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0"
+  }
+}
