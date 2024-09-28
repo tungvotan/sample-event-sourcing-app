@@ -1,5 +1,6 @@
 import { AccountRepository } from '../../repo/accountRepo';
 import { EventRepository } from '../../repo/eventRepo';
+import { charge } from '../account';
 import { createAccountEvent } from '../events/accountEvent';
 
 export type ChargeCommand = {
@@ -15,7 +16,7 @@ export const handleCharge = async (
 ) => {
   const { accountId, amount } = command;
 
-  const account = await accountRepository.getById(accountId);
+  let account = await accountRepository.getById(accountId);
   if (!account) {
     throw new Error(`Account with ID ${accountId} does not exist.`);
   }
@@ -24,16 +25,15 @@ export const handleCharge = async (
     throw new Error('Insufficient balance.');
   }
 
-  account.balance -= amount;
-  account.version += 1;
+  const updatedAccount = charge(account, amount);
 
   const event = createAccountEvent(
     accountId,
     'CHARGE_APPLIED',
     { amount },
-    account.version
+    updatedAccount.version
   );
 
   await eventRepository.saveEvent(event);
-  await accountRepository.save(account);
+  await accountRepository.save(updatedAccount);
 };

@@ -1,5 +1,6 @@
 import { AccountRepository } from '../../repo/accountRepo';
 import { EventRepository } from '../../repo/eventRepo';
+import { addFunds } from '../account';
 import { createAccountEvent } from '../events/accountEvent';
 
 export type AddFundCommand = {
@@ -20,16 +21,15 @@ export const handleAddFund = async (
     throw new Error(`Account with ID ${accountId} does not exist.`);
   }
 
-  account.balance += amount;
-  account.version += 1;
+  const updatedAccount = addFunds(account, amount);
 
   const event = createAccountEvent(
     accountId,
     'FUND_ADDED',
     { amount },
-    account.version
+    updatedAccount.version
   );
   await eventRepository.saveEvent(event);
 
-  await accountRepository.save(account);
+  await accountRepository.save(updatedAccount);
 };

@@ -1,6 +1,6 @@
 import { AccountRepository } from '../../repo/accountRepo';
 import { EventRepository } from '../../repo/eventRepo';
-import { Account } from '../account';
+import { Account, createAccount } from '../account';
 import { createAccountEvent } from '../events/accountEvent';
 
 export type OpenAccountCommand = {
@@ -21,11 +21,7 @@ export const handleOpenAccount = async (
     throw new Error(`Account with ID ${accountId} already exists.`);
   }
 
-  const newAccount: Account = {
-    accountId,
-    balance: initialBalance,
-    version: 0,
-  };
+  const newAccount: Account = createAccount(accountId, initialBalance);
 
   const event = createAccountEvent(
     accountId,
