@@ -4,12 +4,15 @@ import { processCommand } from './application/accountService';
 import { AccountRepository } from './repo/accountRepo';
 import { EventRepository } from './repo/eventRepo';
 import { withTransaction } from './db/withTransaction';
+import requestLogger from './middleware/withRequestLogger';
 
 const accountRepository = new AccountRepository();
 const eventRepository = new EventRepository();
 
 const app = express();
+
 app.use(express.json());
+app.use(requestLogger);
 
 const addFunds = async (accountId: string, amount: number) => {
   // use function name for getting funcName in the log
@@ -82,4 +85,9 @@ app.post('/api/account/charge', async (req, res) => {
     console.error(error);
     res.status(500).send({ error: error.message });
   }
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
