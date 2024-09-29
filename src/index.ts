@@ -16,7 +16,7 @@ app.use(requestLogger);
 
 const addFunds = async (accountId: string, amount: number) => {
   // use function name for getting funcName in the log
-  await withTransaction(async function addFundsCommand(transaction) {
+  await withTransaction(async function addFundsCommand() {
     await processCommand(
       { commandType: 'ADD_FUND', accountId, amount },
       accountRepository,
@@ -26,7 +26,7 @@ const addFunds = async (accountId: string, amount: number) => {
 };
 
 const chargeAccount = async (accountId: string, amount: number) => {
-  await withTransaction(async function chargeAccount(transaction) {
+  await withTransaction(async function chargeAccount() {
     await processCommand(
       { commandType: 'CHARGE', accountId, amount },
       accountRepository,
@@ -35,10 +35,10 @@ const chargeAccount = async (accountId: string, amount: number) => {
   });
 };
 
-const openAccount = async (accountId: string) => {
-  await withTransaction(async function openAccount(transaction) {
+const openAccount = async (accountId: string, initialBalance: number) => {
+  await withTransaction(async function openAccount() {
     await processCommand(
-      { commandType: 'OPEN_ACCOUNT', accountId },
+      { commandType: 'OPEN_ACCOUNT', accountId, initialBalance },
       accountRepository,
       eventRepository
     );
@@ -46,10 +46,10 @@ const openAccount = async (accountId: string) => {
 };
 
 app.post('/api/account', async (req, res) => {
-  const { accountId } = req.body;
+  const { accountId, initialBalance } = req.body;
 
   try {
-    await openAccount(accountId);
+    await openAccount(accountId, initialBalance);
     res.status(200).send({ message: `Opened account ${accountId}` });
   } catch (error: any) {
     console.error(error);
