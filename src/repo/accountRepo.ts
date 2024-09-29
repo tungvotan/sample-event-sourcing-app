@@ -1,11 +1,7 @@
 import db from '../db/dbClient';
 import { Account } from '../domain/entities/accountEntity';
-import { AccountEvent } from '../domain/events/accountEvent';
 
 export class AccountRepository {
-  saveEvent(event: AccountEvent) {
-    throw new Error('Method not implemented.');
-  }
   async getById(accountId: string): Promise<Account | undefined> {
     const result = await db
       .selectFrom('accounts')
